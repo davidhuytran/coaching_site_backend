@@ -33,6 +33,7 @@ app.use(passport.session());
 
 //* ROUTES *//
 app.use("/auth", require("./routes/auth"));
+app.use("/mail", require("./routes/mail"));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
