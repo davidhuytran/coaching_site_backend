@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 999,
         display: 'block',
         backgroundRepeat: 'no-repeat',
-  
+        opacity: '0.5',
       },
       paper: {
           height: 200,
