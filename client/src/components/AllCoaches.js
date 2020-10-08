@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
       dividertext: {
           textAlign: 'center',
           position: 'relative',
-          textAlign: 'center',
           top: 10,
           width: 200,
           margin: '0 auto',
