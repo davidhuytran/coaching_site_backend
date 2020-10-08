@@ -122,14 +122,11 @@ const useStyles = makeStyles((theme) => ({
           backgroundColor: 'black'
       },
       icon: {          
-          position: 'absolute',
-          top: 20,
-          right: -180,
-        //   bottom: -120,
-        //   right: 1,
-          height: 20,
-          color: 'white',
-          background: 'black'
+        top: '14px',
+        color: 'white',
+        right: '-190px',
+        height: '33px',
+        position: 'absolute',
       },
       icon3: {          
         position: 'relative',
