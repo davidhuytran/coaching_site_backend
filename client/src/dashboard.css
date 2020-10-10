@@ -1,0 +1,55 @@
+html {
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: red;
+  padding: 0;
+}
+
+.background {
+  background-image: url("/assets/images/splashart/Fiddlesticks.png");
+  filter: blur(5px);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  left: 0;
+  right: 0;
+}
+
+.profile {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 25%;
+  align-items: center;
+  text-align: center;
+  color: white;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.emblemRank {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+.left {
+  font-size: 20px;
+  float: left;
+}
+.right {
+  float: right;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 30px;
+}

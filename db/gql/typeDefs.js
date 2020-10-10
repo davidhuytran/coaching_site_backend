@@ -68,7 +68,7 @@ const typeDefs = gql`
     appointments: [Appointment]
     appointment(id: ID): Appointment
     users: [User]
-    user(id: ID): User
+    user(email: String): User
     coaches: [Coach]
     coach(id: ID): Coach
     roles: [Role]
