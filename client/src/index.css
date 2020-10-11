@@ -18,10 +18,9 @@ body {
   color: black !important;
 }
 
-.slick-slide {
-  /* height: 200px !important; */
-  /* width: 200px !important; */
-}
+/* .slick-slide.slick-active {
+  width: 60px !important;
+} */
 /* .slick-slide {
   visibility: hidden;
 } */
@@ -37,3 +36,7 @@ body {
 .slick-initialized .slick-slide.slick-active {
   z-index: 1;
 }
+
+/* .slick-slide .slick-active .slick-center .slick-current {
+  width: auto !important;
+} */

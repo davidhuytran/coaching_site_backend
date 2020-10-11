@@ -21,14 +21,11 @@ router.post("/signup", async (req, res) => {
         return next(err);
       }
       if (newUser) {
-        return res.json({
-          status: 100,
-          success: true,
-        });
+        return res.status(200).send({ msg: "Account created" })
       }
     });
   }
-  return res.send("Account already exists.");
+  return res.status(400).send({ msg: "Account exist!"})
 });
 
 router.post("/login", (req, res, next) => {
@@ -37,7 +34,10 @@ router.post("/login", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.json(info);
+      return res.json({
+        status: info.status,
+        msg: info.msg
+      })
     }
     // LogIn User
     // req / res held in closure
@@ -47,9 +47,9 @@ router.post("/login", (req, res, next) => {
       }
       if (user) {
         return res.json({
-          status: 100,
-          success: true,
-        });
+          status: info.status,
+          msg: info.msg
+        })
       }
     });
   })(req, res, next);
@@ -62,11 +62,6 @@ router.get("/user", (req, res) => {
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
-});
-
-router.get("/getAllUsers", async (req, res) => {
-  const users = await User.find({});
-  res.send(users);
 });
 
 router.get(
