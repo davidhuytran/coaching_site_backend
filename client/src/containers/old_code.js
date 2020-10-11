@@ -68,3 +68,22 @@
 // const getSummoner = await axios.get(`${API_KEY}/`)
 
 //CAN'T USE THE ABOVE BECAUSE RIOT GAMES DOESN'T ALLOW API GRAB FROM FRONTEND
+
+{
+  /* <Navbar />
+        <div className="profile">
+          <h1>{SummonerName}</h1>
+          <img
+            className="emblemRank"
+            src={`/assets/images/ranks/${rank.tier}.png`}
+          />
+          <h2>
+            {rank.tier} {rank.rank}
+          </h2>
+          <div className="left"> Wins: {rank.wins}</div>
+          <div className="right">Losses: {rank.losses}</div>
+        </div>
+        {/* <div className="appointments">
+          <h1>Appointments</h1>
+        </div> */
+}

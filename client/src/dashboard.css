@@ -7,8 +7,8 @@ html {
 }
 
 .background {
-  background-image: url("/assets/images/splashart/Fiddlesticks.png");
-  filter: blur(5px);
+  /* background-image: url("/assets/images/splashart/Fiddlesticks.png");
+
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -16,19 +16,16 @@ html {
   width: 100%;
   z-index: 1;
   left: 0;
-  right: 0;
+  right: 0; */
+}
+
+.wrapper {
 }
 
 .profile {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 25%;
-  align-items: center;
-  text-align: center;
-  color: white;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
+}
+
+.appointments {
 }
 
 .emblemRank {
