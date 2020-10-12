@@ -46,34 +46,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Dashboard() {
-  const [SummonerName, setSummonerName] = useState("");
+  const [summonerName, setSummonerName] = useState("");
   const [rank, setRank] = useState({});
   const [timestamps, setTimestamps] = useState([]);
 
-  useEffect(async () => {
-    const summoner_name = await checkLogin();
-    setSummonerName(summoner_name.data.league.name);
-    const rank = await checkRank();
-    setRank(rank);
-    const timestamps = convertTimestamp(summoner_name.data.progress);
-    setTimestamps(timestamps);
-    console.log("timestamps", timestamps);
-
-    // console.log(timestamps);
-    // console.log("WHAT2");
-    // for (let i = 0; i < timestamps.length; i++) {
-    //   console.log(timestamps[i]);
-    // }
-    // console.log("WHAT");
-
-    // console.log(summoner_name.data.progress);
-    // const timestamps = convertTimestamp(summoner_name.data.progress);
-    // setTimestamps(timestamps);
-    // console.log(timestamps);
+  useEffect(() => {
+    async function fetchData() {
+      const user = await checkLogin();
+      await setSummonerName(user.data.league.name);
+      const rank = await checkRank();
+      await setRank(rank);
+      const timestamps = await convertTimestamp(user.data.progress);
+      await setTimestamps(timestamps);
+    }
+    fetchData();
   }, []);
 
   const state = {
-    labels: ["test"],
+    labels: timestamps,
     datasets: [
       {
         label: "ELO",
@@ -86,15 +76,18 @@ function Dashboard() {
     ],
   };
 
+  console.log(state);
+
   const classes = useStyles();
   return (
     <div>
       <Navbar />
+      {/* {timestamps} */}
       <div className={classes.background}>
         <Grid container spacing={0}>
           <Grid item xs={4}>
             <Paper className={classes.paper}>
-              <div className={classes.title}>{SummonerName}</div>
+              <div className={classes.title}>{summonerName}</div>
               <img
                 className={classes.emblemRank}
                 src={`/assets/images/ranks/${rank.tier}.png`}
