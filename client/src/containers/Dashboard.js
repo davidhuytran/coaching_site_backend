@@ -49,6 +49,7 @@ function Dashboard() {
   const [summonerName, setSummonerName] = useState("");
   const [rank, setRank] = useState({});
   const [timestamps, setTimestamps] = useState([]);
+  const [chart, setChart] = useState({});
 
   useEffect(() => {
     async function fetchData() {
@@ -58,25 +59,23 @@ function Dashboard() {
       await setRank(rank);
       const timestamps = await convertTimestamp(user.data.progress);
       await setTimestamps(timestamps);
+      setChart({
+        labels: timestamps,
+        datasets: [
+          {
+            label: "ELO",
+            fill: false,
+            backgroundColor: "rgba(75,192,192,1)",
+            borderColor: "rgba(0,0,0,1)",
+            borderWidth: 2,
+            data: [1800, 1900],
+          },
+        ],
+      });
     }
     fetchData();
-  }, []);
-
-  const state = {
-    labels: timestamps,
-    datasets: [
-      {
-        label: "ELO",
-        fill: false,
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        data: [1800, 1900],
-      },
-    ],
-  };
-
-  console.log(state);
+    //Important to include chart so that it constantly updates
+  }, [chart]);
 
   const classes = useStyles();
   return (
@@ -111,7 +110,7 @@ function Dashboard() {
               <div>
                 {" "}
                 <Line
-                  data={state}
+                  data={chart}
                   options={{
                     title: {
                       display: true,
