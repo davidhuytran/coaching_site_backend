@@ -1,31 +1,144 @@
 import React, { useState, useEffect } from "react";
-import "../reset.css";
-import "../dashboard.css";
-import { checkLogin, checkRank } from "../utils/utilities";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import { checkLogin, checkRank, convertTimestamp } from "../utils/utilities";
+import Navbar from "../components/Navbar";
+import { Line } from "react-chartjs-2";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    margin: "64px 32px",
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    minHeight: "60vh",
+    borderRadius: 30,
+  },
+  emblemRank: {
+    marginTop: "30px",
+    maxWidth: "50%",
+  },
+  title: {
+    color: "black",
+    fontSize: "30px",
+  },
+  stats: {
+    margin: "16px",
+    color: "black",
+    fontSize: "20px",
+  },
+  background: {
+    backgroundImage: `url(/assets/images/splashart/Fiddlesticks.png)`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+  },
+  rank: {
+    fontSize: "26px",
+    color: "black",
+    marginTop: "10px",
+  },
+}));
 
 function Dashboard() {
   const [SummonerName, setSummonerName] = useState("");
   const [rank, setRank] = useState({});
+  const [timestamps, setTimestamps] = useState([]);
 
   useEffect(async () => {
     const summoner_name = await checkLogin();
     setSummonerName(summoner_name.data.league.name);
     const rank = await checkRank();
-    console.log(rank);
     setRank(rank);
+    const timestamps = convertTimestamp(summoner_name.data.progress);
+    setTimestamps(timestamps);
+    console.log("timestamps", timestamps);
+
+    // console.log(timestamps);
+    // console.log("WHAT2");
+    // for (let i = 0; i < timestamps.length; i++) {
+    //   console.log(timestamps[i]);
+    // }
+    // console.log("WHAT");
+
+    // console.log(summoner_name.data.progress);
+    // const timestamps = convertTimestamp(summoner_name.data.progress);
+    // setTimestamps(timestamps);
+    // console.log(timestamps);
   }, []);
 
+  const state = {
+    labels: ["test"],
+    datasets: [
+      {
+        label: "ELO",
+        fill: false,
+        backgroundColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(0,0,0,1)",
+        borderWidth: 2,
+        data: [1800, 1900],
+      },
+    ],
+  };
+
+  const classes = useStyles();
   return (
     <div>
-      <div class="row">
-        <div
-          class="col-xs-12
-                col-sm-8
-                col-md-6
-                col-lg-4"
-        >
-          <div class="box">Responsive</div>
-        </div>
+      <Navbar />
+      <div className={classes.background}>
+        <Grid container spacing={0}>
+          <Grid item xs={4}>
+            <Paper className={classes.paper}>
+              <div className={classes.title}>{SummonerName}</div>
+              <img
+                className={classes.emblemRank}
+                src={`/assets/images/ranks/${rank.tier}.png`}
+              />
+              <div className={classes.rank}>
+                {rank.tier} {rank.rank}
+              </div>
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <div className={classes.stats}>Wins: {rank.wins}</div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className={classes.stats}>Losses: {rank.losses} </div>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              <div className={classes.title}>Rank over time</div>
+              <div>
+                {" "}
+                <Line
+                  data={state}
+                  options={{
+                    title: {
+                      display: true,
+                      fontSize: 20,
+                    },
+                    legend: {
+                      display: true,
+                      position: "right",
+                    },
+                  }}
+                />
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={2}>
+            <Paper className={classes.paper}>
+              <div className={classes.title}>Appointments</div>
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

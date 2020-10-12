@@ -49,3 +49,11 @@ export async function checkRank() {
     }
   }
 }
+
+export async function convertTimestamp(progress) {
+  const timestamps = [];
+  for (let i = 0; i < progress.length; i++) {
+    timestamps.push(progress[i].timeStamp);
+  }
+  return timestamps;
+}
