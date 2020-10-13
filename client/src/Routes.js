@@ -11,7 +11,7 @@ import SignUpSide from './components/SignUpSide';
 import Coaches from './containers/Coaches';
 import Contact from './containers/Contact';
 import Dashboard from './containers/Dashboard';
-import CoachProfile from './components/CoachProfile'
+import CoachProfile from './containers/CoachProfile'
 
 function Routes(props) {
     const render = () => {

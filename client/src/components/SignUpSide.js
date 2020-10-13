@@ -64,8 +64,9 @@ export default function SignUpSide() {
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await handleSignup(value);
-    if(response.data.status === 100) {
-      window.location = "/"
+    const { status } = response.data
+    if(status === 200) {
+      window.location = "/dashboard"
     }
     // setValue({})
   }

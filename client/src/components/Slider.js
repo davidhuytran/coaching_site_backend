@@ -11,7 +11,7 @@ const random = Math.floor(Math.random() * 5);
 
 const useStyles = makeStyles((theme) => ({
       slider: {
-        width: '80vw',
+        width:   '80vw',
         margin: '0 auto'
       },
       main: {
@@ -66,9 +66,12 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         top: 0,
         bottom: 0,
-      height: 200,
-      width: 'auto',
-      padding: 10,
+      height: 190,
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
+      },
+      // width: 'auto',
+      // padding: 10,
       margin: '0 auto',
       zIndex: 9999,
       display: 'block',
@@ -81,13 +84,14 @@ const useStyles = makeStyles((theme) => ({
           right: 0,
           top: -200,
           bottom: 0,
-        height: 200,
-        width: 200,
+        height: 230,
+        [theme.breakpoints.down('md')]:{
+          width: '100%',
+        },
         padding: 10,
         margin: '0 auto',
         zIndex: 999,
         display: 'block',
-        backgroundRepeat: 'no-repeat',
         opacity: '0.5',
       },
       paper: {
@@ -150,22 +154,58 @@ export default function SliderExample(props) {
   console.log(props)
     const [updateCount, setCount] = useState(0) 
     const classes = useStyles();
+    // const center = {
+    //     className: 'center',
+    //     arrows: true,
+    //     centerMode: true,
+    //     infinite: true,
+    //     // centerPadding: "60px",
+    //     slidesToShow: 3,
+    //     speed: 500,
+    //     autoplay: true,
+    //     autoplaySpeed: 2000,
+    //     beforeChange: (current, next) => setCount(next),
+    //     // afterChange: current => setIndex(current)
+    //   };
     const center = {
-        className: 'center',
+       className: 'center',
         arrows: true,
         centerMode: true,
         infinite: true,
-        centerPadding: "60px",
+        // centerPadding: "60px",
         slidesToShow: 3,
         speed: 500,
         autoplay: true,
         autoplaySpeed: 2000,
         beforeChange: (current, next) => setCount(next),
-        // afterChange: current => setIndex(current)
-      };
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
 
       const list = _.filter(props.region.coaches, (o) => { return o.id !== props.coach_id });
-
     return(
         <div className={classes.slider}>
         <br />
@@ -183,19 +223,10 @@ export default function SliderExample(props) {
             // image={`/assets/images/coaches/${coach.name}.png`}
             
             >
-                      <Link key={coach.id} to={`/coachid=${coach.id}`}>
+            <Link key={coach.id} to={`/coachid=${coach.id}`}>
             <img src={`/assets/images/teams/${coach.team.name}/${coach.name}.png`} className={classes.coaches}/>
             <img src={`/assets/images/teams/${coach.team.name}/icon.png`} className={classes.logo_background} />
-                {/* <h1 className={classes.paperRole}>{coach.role.toUpperCase()}</h1> */}
-                {/* <h1 className={classes.paperTitle}>{word}</h1> */}
-                {/* <span className={classes.position}>
-                    <h1 className={classes.paperTitle}>{coach.name.toUpperCase()}</h1>
-                    <a href={coach.stream} target="_blank">
-
-                        <img src="/assets/images/twitch_icon.png" className={classes.icons}/>
-                    </a>   
-                </span> */}
-                 </Link>
+            </Link>
             </CardMedia>
            
         )}

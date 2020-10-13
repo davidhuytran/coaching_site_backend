@@ -22,19 +22,24 @@ async function email(first, last, to, subject, text) {
                 We got your message regarding 
                 <b>"${text}"</b>
             <br/> 
-            We will get back to you soon!
+            We will get back to you soon!🚗
         </p>`, // html body
     }
     // send mail with defined transport object
     let { info, error } = await transporter.sendMail(message);
-    if(error) return error
-    if(info) {
-        return {
-            status: 100,
-            message: "Message Sent!"
-        }
+    if(error) return {
+        status: 500,
+        msg: error
     }
-    transporter.close()
+    if(info) return {
+        status: 300,
+        msg: info
+    }
+    return {
+        status: 200,
+        msg: "Message Sent!"
+    }
+    // transporter.close()
 }
 
 module.exports = email

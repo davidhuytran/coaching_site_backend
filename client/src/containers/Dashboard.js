@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,6 +56,18 @@ function Dashboard() {
   const [rank, setRank] = useState({});
   const [timestamps, setTimestamps] = useState([]);
   const [chart, setChart] = useState({});
+=======
+import React from 'react';
+import Navbar from '../components/Navbar';
+
+const Dashboard = () => {
+    return(
+        <div>
+            <Navbar />
+        </div>
+    )
+}
+>>>>>>> abf6ed597e48d9fce1c9f1e13776227e756d72cb
 
   useEffect(() => {
     async function fetchData() {

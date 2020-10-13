@@ -1,8 +1,9 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import Navbar from './Navbar';
-import SliderExample from './Slider';
-import Footer from './Footer'
+import Navbar from '../components/Navbar';
+import SliderExample from '../components/Slider';
+import Book_Button from '../components/Book_Button';
+import Footer from '../components/Footer'
 
 const GET_GREETING = gql`
   query GetCoach($id: ID!) {
@@ -56,9 +57,11 @@ function CoachProfile(props) {
         <Navbar />
         <h1>View Console for data of {coach.name}</h1>
         <h2>Region: {coach.region.name}</h2>
+        <img src={`/assets/images/teams/${coach.team.name}/${coach.name}.png`} />
         <h2>Name: {coach.name}</h2>
         <h2>Team: {coach.team.name}</h2>
         <h2>Role: {coach.role.name}</h2>
+        <Book_Button />
         <h1>Other players from this region</h1>
         <SliderExample coach_id={id} region={coach.region} />
         <h1>Other players with the same Role</h1>

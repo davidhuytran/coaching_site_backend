@@ -9,7 +9,11 @@ import Route from './Routes';
 const useStyles = makeStyles((theme) => ({
   background: {
     minHeight: '100vh',
-    backgroundColor: '#666',
+    // backgroundColor: '#666',
+    // background: '#67B26F',  /* fallback for old browsers */
+    background: 'white',
+    // background: '-webkit-linear-gradient(to right, #4ca2cd, #67B26F)',  /* Chrome 10-25, Safari 5.1-6 */
+    // background: 'linear-gradient(to right, #4ca2cd, #67B26F)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 })
 )

@@ -63,9 +63,9 @@ export default function SignInSide() {
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await handleLogin(value);
-    console.log(response)
-    if(response.data.status === 100) {
-      window.location = "/"
+    const { status } = response.data
+    if(status === 200) {
+      window.location = "/dashboard"
     }
     // setValue({})
   }
