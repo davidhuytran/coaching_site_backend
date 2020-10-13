@@ -57,3 +57,14 @@ export async function convertTimestamp(progress) {
   }
   return timestamps;
 }
+
+export async function convertELO(progress) {
+  const ELO = [];
+  for (let i = 0; i < progress.length; i++) {
+    ELO.push(progress[i].response);
+    //.tier platinum
+    //.rank iii
+  }
+  console.log(ELO);
+  return ELO;
+}

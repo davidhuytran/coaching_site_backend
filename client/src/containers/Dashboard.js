@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { checkLogin, checkRank, convertTimestamp } from "../utils/utilities";
+import {
+  checkLogin,
+  checkRank,
+  convertELO,
+  convertTimestamp,
+} from "../utils/utilities";
 import Navbar from "../components/Navbar";
 import { Line } from "react-chartjs-2";
 
@@ -72,10 +77,42 @@ function Dashboard() {
           },
         ],
       });
+      convertELO(user.data.progress);
     }
     fetchData();
     //Important to include chart so that it constantly updates
   }, [chart]);
+
+  const elo = [
+    "UNRANKED",
+    "Iron IV",
+    "Iron III",
+    "IRON II",
+    "IRON I",
+    "BRONZE IV",
+    "BRONZE III",
+    "BRONZE II",
+    "BRONZE I",
+    "SILVER IV",
+    "SILVER III",
+    "SILVER II",
+    "SILVER I",
+    "GOLD IV",
+    "GOLD III",
+    "GOLD II",
+    "GOLD I",
+    "PLATINUM IV",
+    "PLATINUM III",
+    "PLATINUM II",
+    "PLATINUM I",
+    "DIAMOND IV",
+    "DIAMOND III",
+    "DIAMOND II",
+    "DIAMOND I",
+    "MASTER",
+    "GRANDMASTER",
+    "CHALLENGER",
+  ];
 
   const classes = useStyles();
   return (
