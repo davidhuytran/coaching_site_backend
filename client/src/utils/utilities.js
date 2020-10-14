@@ -59,12 +59,46 @@ export async function convertTimestamp(progress) {
 }
 
 export async function convertELO(progress) {
-  const ELO = [];
+  const elo = {
+    IRONIV: 200,
+    IRONIII: 300,
+    IRONII: 400,
+    IRONI: 500,
+    BRONZEIV: 600,
+    BRONZEIII: 700,
+    BRONZEII: 800,
+    BRONZEI: 900,
+    SILVERIV: 1000,
+    SILVERIII: 1100,
+    SILVERII: 1200,
+    SILVERI: 1300,
+    GOLDIV: 1400,
+    GOLDIII: 1500,
+    GOLDII: 1600,
+    GOLDI: 1700,
+    PLATINUMIV: 1800,
+    PLATINUMIII: 1900,
+    PLATINUMII: 2000,
+    PLATINUMI: 2100,
+    DIAMONDIV: 2200,
+    DIAMONDIII: 2300,
+    DIAMONDII: 2400,
+    DIAMONDI: 2500,
+    MASTER: 2600,
+    GRANDMASTER: 2700,
+    CHALLENGER: 2800,
+  };
+
+  const rankOverTime = [];
+
   for (let i = 0; i < progress.length; i++) {
-    ELO.push(progress[i].response);
-    //.tier platinum
-    //.rank iii
+    console.log("HELLO");
+    const tier = progress[i].response[0].tier;
+    const rank = progress[i].response[0].rank;
+    const lp = progress[i].response[0].leaguePoints;
+    const eloNumber = elo[`${tier}${rank}`] + lp;
+    rankOverTime.push(eloNumber);
   }
-  console.log(ELO);
-  return ELO;
+  console.log(rankOverTime);
+  return rankOverTime;
 }

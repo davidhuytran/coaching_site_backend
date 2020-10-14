@@ -18,7 +18,9 @@ const typeDefs = gql`
     email: String
     password: String
     appointments: [Appointment]
+    progress: JSON
   }
+
   type Region {
     id: ID
     name: String

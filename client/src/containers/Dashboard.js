@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard() {
   const [summonerName, setSummonerName] = useState("");
   const [rank, setRank] = useState({});
-  const [timestamps, setTimestamps] = useState([]);
   const [chart, setChart] = useState({});
 
   useEffect(() => {
@@ -62,8 +61,14 @@ function Dashboard() {
       await setSummonerName(user.data.league.name);
       const rank = await checkRank();
       await setRank(rank);
-      const timestamps = await convertTimestamp(user.data.progress);
-      await setTimestamps(timestamps);
+      const timestamps = user.data.progress.map(
+        (league) =>
+          new Date(league.timeStamp).getMonth() +
+          1 +
+          "/" +
+          new Date(league.timeStamp).getDate()
+      );
+      const rankOverTime = await convertELO(user.data.progress);
       setChart({
         labels: timestamps,
         datasets: [
@@ -73,53 +78,20 @@ function Dashboard() {
             backgroundColor: "rgba(75,192,192,1)",
             borderColor: "rgba(0,0,0,1)",
             borderWidth: 2,
-            data: [1800, 1900],
+            data: rankOverTime,
           },
         ],
       });
-      convertELO(user.data.progress);
     }
     fetchData();
-    //Important to include chart so that it constantly updates
-  }, [chart]);
-
-  const elo = [
-    "UNRANKED",
-    "Iron IV",
-    "Iron III",
-    "IRON II",
-    "IRON I",
-    "BRONZE IV",
-    "BRONZE III",
-    "BRONZE II",
-    "BRONZE I",
-    "SILVER IV",
-    "SILVER III",
-    "SILVER II",
-    "SILVER I",
-    "GOLD IV",
-    "GOLD III",
-    "GOLD II",
-    "GOLD I",
-    "PLATINUM IV",
-    "PLATINUM III",
-    "PLATINUM II",
-    "PLATINUM I",
-    "DIAMOND IV",
-    "DIAMOND III",
-    "DIAMOND II",
-    "DIAMOND I",
-    "MASTER",
-    "GRANDMASTER",
-    "CHALLENGER",
-  ];
-
+    //Important to include [chart] so that it constantly updates
+  }, []);
+  // style={{marginRight: spacing + 'em'}}
   const classes = useStyles();
   return (
     <div>
-      <Navbar />
-      {/* {timestamps} */}
       <div className={classes.background}>
+        <Navbar />
         <Grid container spacing={0}>
           <Grid item xs={4}>
             <Paper className={classes.paper}>
@@ -133,10 +105,14 @@ function Dashboard() {
               </div>
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <div className={classes.stats}>Wins: {rank.wins}</div>
+                  <div className={classes.stats} style={{ color: "green" }}>
+                    {rank.wins}
+                  </div>
                 </Grid>
                 <Grid item xs={6}>
-                  <div className={classes.stats}>Losses: {rank.losses} </div>
+                  <div className={classes.stats} style={{ color: "red" }}>
+                    {rank.losses}{" "}
+                  </div>
                 </Grid>
               </Grid>
             </Paper>

@@ -11,7 +11,7 @@ const usersDB = new Schema({
   email: String,
   username: String,
   password: String,
-  cc: String,
+  isActive: false,
   league: {
     id: String,
     accountId: String,
