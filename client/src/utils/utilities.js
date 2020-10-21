@@ -32,6 +32,14 @@ export async function handleMail(data) {
   return response;
 }
 
+export async function addSummoner(data) {
+  console.log(data);
+  const response = await axios.post("/league/addAccount", {
+    summonerName: data.summonerName
+  });
+  return response;
+}
+
 export async function checkLogin() {
   const response = await axios.get("/auth/user");
   if (response.data) {

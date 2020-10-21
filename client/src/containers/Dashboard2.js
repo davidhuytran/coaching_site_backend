@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import Footer from "../components/Footer";
 import FaceIcon from '@material-ui/icons/Face';
 import Container from "@material-ui/core/Container";
+import {addSummoner, checkLogin} from "../utils/utilities";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +62,9 @@ function Dashboard2() {
   const [value, setValue] = useState({});
   const classes = useStyles();
 
-  useEffect(() => {});
+  useEffect(() => {    
+
+  });
 
   function handleChange(e) {
     e.preventDefault();
@@ -72,7 +75,13 @@ function Dashboard2() {
   }
   async function submitHandler(e) {
     e.preventDefault();
-    // console.log(value.summonerName);
+    // const user = await checkLogin();
+    // const summoner = value.summonerName;
+    // console.log(user.data);
+    // console.log(summoner);
+    const response = await addSummoner(value);
+    console.log(response);
+
     
   }
 
