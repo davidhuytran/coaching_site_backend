@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbar";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Footer from "../components/Footer";
-
 import FaceIcon from '@material-ui/icons/Face';
-
 import Container from "@material-ui/core/Container";
 
 
@@ -34,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       minHeight: "100vh",
     },
-    // backgroundColor: 'white',
     backgroundColor: "#f5f5f5",
     [theme.breakpoints.between("sm", "xl")]: {
       borderRadius: 30,
