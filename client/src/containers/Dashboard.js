@@ -10,6 +10,22 @@ import {
 } from "../utils/utilities";
 import Navbar from "../components/Navbar";
 import { Line } from "react-chartjs-2";
+import { gql, useQuery } from '@apollo/client';
+
+const GET_GREETING = gql`
+  query GetUser($email: String!) {
+    user(email: $email) {
+      appointments {
+        date
+        time
+        coach {
+          name
+        }
+      }
+    }
+  }
+  
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
