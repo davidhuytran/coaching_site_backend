@@ -75,14 +75,8 @@ function Dashboard2() {
   }
   async function submitHandler(e) {
     e.preventDefault();
-    // const user = await checkLogin();
-    // const summoner = value.summonerName;
-    // console.log(user.data);
-    // console.log(summoner);
     const response = await addSummoner(value);
     console.log(response);
-
-    
   }
 
   return (
