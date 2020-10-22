@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Payment from '../components/Payments';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -108,11 +109,12 @@ export default function Pricing() {
                   </ul>
                 </CardContent>
                 <CardActions>
+                  {tier.title === 'Pro' ? <Payment fullWidth variant={tier.buttonVariant} color="primary"/>:                  
                   <Button fullWidth variant={tier.buttonVariant} color="primary">
                     <Link className={classes.cardButton} to={`/${tier.link}`}>
                       {tier.buttonText}
                     </Link>
-                  </Button>
+                  </Button>}
                 </CardActions>
               </Card>
             </Grid>

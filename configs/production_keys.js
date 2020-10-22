@@ -6,5 +6,7 @@ module.exports = {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     API_KEY: process.env.API_KEY,
+    stripePublishableKey: process.env.stripePublishableKey,
+    stripeSecretKey: process.env.stripeSecretKey,
   };
   
