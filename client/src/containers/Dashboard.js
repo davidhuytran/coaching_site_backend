@@ -56,7 +56,9 @@ const APPOINTMENT_QUERY = gql`
     user(email: $email) {
       name
       appointments {
+        id
         coach {
+          id
           name
         }
         date
@@ -113,20 +115,9 @@ function Dashboard(props) {
   });
   if (loading) return 'Loading...';
   if (error) return 'Something bad has happened';
-
-  return (
-    <ul>
-      {data.user.map(({name }) => (
-        <li>{name}</li>
-      ))}
-    </ul>
+  if (!data.user) return (
+    <div> Loading </div>
   )
-
-
-  // console.log("data",data.user);
-  // console.log("data user",data.user);
-  // console.log("data user appointments", data.user.appointments);
-  
 
   return (
     <div>
@@ -183,10 +174,12 @@ function Dashboard(props) {
               <div className={classes.title}>
                 <div>Appointments</div>
                 <div>
-                  <ul>
-                    {/* {data.user.appointments.map(({date, time}) => (
-                      <li>hi</li>
-                    ))} */}
+                  <ul className={classes.appointments}>
+                    {data.user.appointments.map(({id, date, time, coach}) => (
+                      <li key={id}>{date} @ {time} with
+                         <a href={"http://localhost:3000/coachid=" + coach.id}> {coach.name}</a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
