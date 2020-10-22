@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     marginTop: "10px",
   },
+  appointments: {
+    fontSize: "26px",
+  }
 }));
 
 const APPOINTMENT_QUERY = gql`
