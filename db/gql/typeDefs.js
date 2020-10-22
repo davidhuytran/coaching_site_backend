@@ -18,7 +18,9 @@ const typeDefs = gql`
     email: String
     password: String
     appointments: [Appointment]
+    progress: JSON
   }
+
   type Region {
     id: ID
     name: String
@@ -68,7 +70,7 @@ const typeDefs = gql`
     appointments: [Appointment]
     appointment(id: ID): Appointment
     users: [User]
-    user(id: ID): User
+    user(email: String): User
     coaches: [Coach]
     coach(id: ID): Coach
     roles: [Role]

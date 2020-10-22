@@ -5,7 +5,7 @@ const resolvers = {
     appointments: () => Appointment.find(),
     appointment: (parent, args) => Appointment.findById(args.id),
     users: () => User.find(),
-    user: (parent, args) => User.findById(args.id),
+    user: (parent, args) => User.findOne({ email: args.email }),
     coaches: () => Coach.find(),
     coach: (parent, args) => Coach.findById(args.id),
     roles: () => Role.find(),
@@ -43,18 +43,19 @@ const resolvers = {
   },
   Team: {
     coaches: (parent, args) => {
-      return Coach.find({ teamID: parent.id })
-    }
+      return Coach.find({ teamID: parent.id });
+    },
   },
   Region: {
     coaches: (parent, args) => {
-      return Coach.find({ regionID: parent.id})
-    }
+      return Coach.find({ regionID: parent.id });
+    },
   },
   Mutation: {
     addAppointment: async (parent, args) => {
       const newAppointment = await new Appointment({
-        email: args.email,
+        coach_id: args.coach_id,
+        user_id: args.user_id,
         date: args.date,
         time: args.time,
       }).save();
@@ -118,31 +119,31 @@ const resolvers = {
     },
     addTeam: async (_, { name }) => {
       const teamFound = await Team.findOne({ name });
-      if(!teamFound) {
+      if (!teamFound) {
         const newTeam = await new Team({
-          name
+          name,
         }).save();
-        return newTeam
+        return newTeam;
       }
-      return teamFound
+      return teamFound;
     },
     addNewTeam: async () => {
-      for(let i = 0; i < dataLog.length; i++) {
+      for (let i = 0; i < dataLog.length; i++) {
         let dataTeam = dataLog[i].team;
-        let dataRegion = dataLog[i].region
-        let allPlayers = dataLog[i].players
-        for(let j = 0; j < allPlayers.length; j++) {
-          let player = allPlayers[j]
-          const role = await Role.findOne({ name: player.role })
-          const region = await Region.findOne({ name: dataRegion })
+        let dataRegion = dataLog[i].region;
+        let allPlayers = dataLog[i].players;
+        for (let j = 0; j < allPlayers.length; j++) {
+          let player = allPlayers[j];
+          const role = await Role.findOne({ name: player.role });
+          const region = await Region.findOne({ name: dataRegion });
           const team = await Team.findOne({ name: dataTeam });
           new Coach({
             name: player.name,
             real_name: player.real_name,
             roleID: role.id,
             teamID: team.id,
-            regionID: region.id
-          }).save()
+            regionID: region.id,
+          }).save();
         }
       }
     },
