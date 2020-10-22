@@ -33,7 +33,6 @@ export async function handleMail(data) {
 }
 
 export async function addSummoner(data) {
-  console.log(data);
   const response = await axios.post("/league/addAccount", {
     summonerName: data.summonerName
   });
@@ -100,13 +99,11 @@ export async function convertELO(progress) {
   const rankOverTime = [];
 
   for (let i = 0; i < progress.length; i++) {
-    console.log("HELLO");
     const tier = progress[i].response[0].tier;
     const rank = progress[i].response[0].rank;
     const lp = progress[i].response[0].leaguePoints;
     const eloNumber = elo[`${tier}${rank}`] + lp;
     rankOverTime.push(eloNumber);
   }
-  console.log(rankOverTime);
   return rankOverTime;
 }

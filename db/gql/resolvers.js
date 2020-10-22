@@ -54,7 +54,8 @@ const resolvers = {
   Mutation: {
     addAppointment: async (parent, args) => {
       const newAppointment = await new Appointment({
-        email: args.email,
+        coach_id: args.coach_id,
+        user_id: args.user_id,
         date: args.date,
         time: args.time,
       }).save();

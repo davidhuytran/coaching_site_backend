@@ -12,21 +12,6 @@ import Navbar from "../components/Navbar";
 import { Line } from "react-chartjs-2";
 import { gql, useQuery } from '@apollo/client';
 
-const GET_GREETING = gql`
-  query GetUser($email: String!) {
-    user(email: $email) {
-      appointments {
-        date
-        time
-        coach {
-          name
-        }
-      }
-    }
-  }
-  
-`;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -66,15 +51,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard() {
+const APPOINTMENT_QUERY = gql`
+  query Appointment($email: String) {
+    user(email: $email) {
+      name
+      appointments {
+        coach {
+          name
+        }
+        date
+        time
+      }
+    }
+  }`;
+
+
+function Dashboard(props) {
+
   const [summonerName, setSummonerName] = useState("");
   const [rank, setRank] = useState({});
   const [chart, setChart] = useState({});
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     async function fetchData() {
       const user = await checkLogin();
       await setSummonerName(user.data.league.name);
+      await setUser(user.data);
       const rank = await checkRank();
       await setRank(rank);
       const timestamps = user.data.progress.map(
@@ -103,7 +106,28 @@ function Dashboard() {
     //Important to include [chart] so that it constantly updates
   }, []);
   // style={{marginRight: spacing + 'em'}}
+
   const classes = useStyles();
+  const {loading, error, data } = useQuery(APPOINTMENT_QUERY, {
+    variables: {email: user.email}
+  });
+  if (loading) return 'Loading...';
+  if (error) return 'Something bad has happened';
+
+  return (
+    <ul>
+      {data.user.map(({name }) => (
+        <li>{name}</li>
+      ))}
+    </ul>
+  )
+
+
+  // console.log("data",data.user);
+  // console.log("data user",data.user);
+  // console.log("data user appointments", data.user.appointments);
+  
+
   return (
     <div>
       <div className={classes.background}>
@@ -156,7 +180,16 @@ function Dashboard() {
           </Grid>
           <Grid item xs={2}>
             <Paper className={classes.paper}>
-              <div className={classes.title}>Appointments</div>
+              <div className={classes.title}>
+                <div>Appointments</div>
+                <div>
+                  <ul>
+                    {/* {data.user.appointments.map(({date, time}) => (
+                      <li>hi</li>
+                    ))} */}
+                  </ul>
+                </div>
+              </div>
             </Paper>
           </Grid>
         </Grid>
